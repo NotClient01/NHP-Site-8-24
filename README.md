@@ -45,6 +45,8 @@ Then visit `http://localhost:8000`
 └── do-app.yaml            # DigitalOcean App Platform config
 ```
 
+**Note**: All asset references in HTML/CSS must use root-relative paths (`/assets/...`) for production deployment.
+
 ## Deployment
 
 ### GitHub Pages
@@ -110,6 +112,57 @@ The GitHub Actions workflow automatically:
 3. **Performance**: Use Lighthouse for performance audits
 4. **Accessibility**: Check with screen readers and keyboard navigation
 
+## Path Requirements (CRITICAL)
+
+### File Paths for Production
+**All asset references must use root-relative paths for production deployment:**
+
+#### ✅ Correct (Production-Ready)
+```html
+<!-- Images -->
+<img src="/assets/img/hero-image.jpg" alt="Hero">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/styles.css">
+
+<!-- JavaScript -->
+<script src="/assets/js/main.js"></script>
+
+<!-- CSS Background Images -->
+.hero {
+    background-image: url('/assets/img/hero-bg.jpg');
+}
+```
+
+#### ❌ Wrong (Breaks in Production)
+```html
+<!-- Images -->
+<img src="assets/img/hero-image.jpg" alt="Hero">
+
+<!-- CSS -->
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<!-- JavaScript -->
+<script src="assets/js/main.js"></script>
+
+<!-- CSS Background Images -->
+.hero {
+    background-image: url('../img/hero-bg.jpg');
+}
+```
+
+### Why Root-Relative Paths Matter
+- **Local development**: Relative paths work fine when opening HTML files directly
+- **Production deployment**: Web servers require root-relative paths to locate files correctly
+- **Consistency**: Root-relative paths work in both local and production environments
+
+### Testing Locally
+To test with production paths locally, use a local server:
+```bash
+python3 -m http.server 8000
+# Then visit http://localhost:8000
+```
+
 ## Customization
 
 ### Colors
@@ -130,8 +183,9 @@ The site uses Clarendon font family. To change:
 
 ### Images
 - All images are in `assets/img/` with kebab-case naming
-- Use root-relative paths: `/assets/img/filename.jpg`
+- **IMPORTANT**: Use root-relative paths: `/assets/img/filename.jpg` (NOT `assets/img/filename.jpg`)
 - Add `loading="lazy"` for non-critical images
+- Root-relative paths are required for production deployment on web servers
 
 ## Maintenance
 
@@ -142,7 +196,10 @@ The site uses Clarendon font family. To change:
 4. **SEO monitoring**: Check search console for issues
 
 ### Troubleshooting
-- **Images not loading**: Check file paths and case sensitivity
+- **Images not loading**: 
+  - Check file paths and case sensitivity
+  - **CRITICAL**: Use root-relative paths (`/assets/img/...`) for production, not relative paths (`assets/img/...`)
+  - Relative paths work locally but break on web servers
 - **CSS not applying**: Verify the stylesheet is linked correctly
 - **Deployment issues**: Check GitHub Actions logs for errors
 

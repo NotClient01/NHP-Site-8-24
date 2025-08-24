@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Contact Us | New Horizon Precision</title>
+	<meta name="description" content="Get in touch for quotes, documentation requests, and general inquiries.">
+	<link rel="icon" href="/assets/img/favicon.ico">
+	<link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+        .contact-hero { height: 45vh; background: linear-gradient(rgba(30,61,47,0.65), rgba(30,61,47,0.65)), url('/assets/img/og-hero.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; }
+        .contact-card { background: var(--color-surface, #fff); border-radius: 10px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; color: var(--color-dark-green, #1E3D2F); font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 6px; background: #fff; }
+        .form-group textarea { min-height: 140px; resize: vertical; }
+        .notice { display:none; margin-top: 12px; padding: 12px; border-radius: 6px; font-size: 0.95rem; }
+        .notice.success { background: #e8f6ee; color: #0b7a3b; border: 1px solid #bfe7cf; }
+        .notice.error { background: #fdecea; color: #b71c1c; border: 1px solid #f5c6c6; }
+        .sidebar { background: var(--color-surface, #fff); border-radius: 10px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+	<!-- Header -->
+	<header>
+		<nav>
+			<div class="logo">
+				<a href="index.html">New Horizon Precision</a>
+			</div>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="about.html">About Us</a></li>
+				<li><a href="services.html">Services</a></li>
+				<li><a href="kudzu.html">Kudzu Removal</a></li>
+				<li><a href="certifications.html">Certifications</a></li>
+				<li><a href="contact.html" aria-current="page">Contact</a></li>
+				<li><a href="portal.html">Customer Portal</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Page Header -->
+	<section class="hero contact-hero">
+		<div class="hero-content">
+			<h1>Contact Us</h1>
+			<p class="tagline">Quotes, documentation, and project inquiries</p>
+		</div>
+	</section>
+
+	<!-- Contact -->
+	<section class="section">
+		<div class="container contact-grid">
+			<div class="contact-card">
+				<div class="section-title" style="text-align:left; margin-bottom:20px;">
+					<h2>Send us a message</h2>
+					<p>We typically respond within one business day.</p>
+				</div>
+				<form id="contactForm" novalidate>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="name">Full Name</label>
+							<input type="text" id="name" name="name" required autocomplete="name" placeholder="Jane Doe">
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="phone">Phone (optional)</label>
+							<input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(555) 555-5555">
+						</div>
+						<div class="form-group">
+							<label for="purpose">Purpose</label>
+							<select id="purpose" name="purpose" required>
+								<option value="" disabled selected>Select a purpose</option>
+								<option value="quote">Request a Quote</option>
+								<option value="documentation">Request Documentation</option>
+								<option value="general">General Inquiry</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea id="message" name="message" required placeholder="Tell us a bit about your needs..."></textarea>
+					</div>
+					<button type="submit" class="cta-button">Send Message</button>
+					<div id="formSuccess" class="notice success">Thanks! Your email app should open now. If it doesn't, please email us using the address shown after clicking send.</div>
+					<div id="formError" class="notice error">Please complete the required fields.</div>
+				</form>
+			</div>
+			<div class="sidebar">
+				<h3 style="color: var(--color-dark-green, #1E3D2F); margin-bottom:10px;">Other ways to reach us</h3>
+				<p>Knoxville, Tennessee</p>
+				<p>East Tennessee & Expanding South</p>
+				<p style="margin-top:10px;">Phone: (865) XXX-XXXX</p>
+				<p>Email: info [at] newhorizonprecision [dot] com</p>
+				<p style="margin-top:10px;"><a href="certifications.html">View Certifications</a></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-section">
+					<h3>Contact Information</h3>
+					<p>Knoxville, Tennessee</p>
+					<p>East Tennessee & Expanding South</p>
+					<p>Phone: (865) XXX-XXXX</p>
+					<p>Email: info@newhorizonprecision.com</p>
+				</div>
+				<div class="footer-section">
+					<h3>Services</h3>
+					<a href="services.html">Aerial Spraying</a>
+					<a href="services.html">Cover Crop Application</a>
+					<a href="services.html">Mapping & Surveying</a>
+					<a href="services.html">Row Crop & Pasture Seeding</a>
+					<a href="services.html">Precision Agriculture</a>
+				</div>
+				<div class="footer-section">
+					<h3>Quick Links</h3>
+					<a href="portal.html">Customer Portal</a>
+					<a href="certifications.html">Certifications</a>
+					<a href="https://linkedin.com/company/knoxville-drone-solutions" target="_blank">LinkedIn</a>
+					<a href="about.html">About Us</a>
+				</div>
+				<div class="footer-section">
+					<h3>Service Areas</h3>
+					<p>East Tennessee (Primary)</p>
+					<p>Expanding Throughout the South</p>
+					<p>Recurring Contracts Available</p>
+					<p>One-Time Services Offered</p>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2024 New Horizon Precision. All rights reserved. | FAA Part 107 & 137 Certified | TDA Licensed</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+	(function() {
+		function getQueryParam(name) {
+			const params = new URLSearchParams(window.location.search);
+			return params.get(name);
+		}
+
+		// Prefill purpose and message from query
+		const purposeParam = getQueryParam('purpose');
+		const messageParam = getQueryParam('message');
+		if (purposeParam) {
+			const sel = document.getElementById('purpose');
+			for (const opt of sel.options) {
+				if (opt.value === purposeParam) { sel.value = purposeParam; break; }
+			}
+		}
+		if (messageParam) {
+			document.getElementById('message').value = messageParam;
+		}
+
+		const form = document.getElementById('contactForm');
+		const success = document.getElementById('formSuccess');
+		const error = document.getElementById('formError');
+
+		function obfuscatedMailto(local, domain, tld) {
+			return 'mailto:' + local + '@' + domain + '.' + tld;
+		}
+
+		form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			error.style.display = 'none';
+			success.style.display = 'none';
+
+			const name = document.getElementById('name').value.trim();
+			const email = document.getElementById('email').value.trim();
+			const phone = document.getElementById('phone').value.trim();
+			const purpose = document.getElementById('purpose').value;
+			const message = document.getElementById('message').value.trim();
+
+			if (!name || !email || !purpose || !message) {
+				error.style.display = 'block';
+				return;
+			}
+
+			// Build email subject/body; protect address by composing via JS
+			const subject = encodeURIComponent('New Horizon Precision Inquiry - ' + purpose);
+			const lines = [
+				'Message from: ' + name,
+				'Email: ' + email,
+				(phone ? 'Phone: ' + phone : null),
+				'Purpose: ' + purpose,
+				'',
+				message
+			].filter(Boolean);
+			const body = encodeURIComponent(lines.join('\n'));
+
+			const mailto = obfuscatedMailto('spencerdore323','gmail','com') + '?subject=' + subject + '&body=' + body;
+			window.location.href = mailto;
+			success.style.display = 'block';
+		});
+	})();
+	</script>
+	<script src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/auth.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login — New Horizon Precision</title>
+    <link rel="icon" href="/assets/img/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+        .auth-wrapper { min-height: 100vh; display: grid; place-items: center; background: var(--color-off-white); }
+        .auth-card { width: 100%; max-width: 420px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); padding: 28px; }
+        .auth-card h1 { font-size: 1.8rem; color: var(--color-dark-green); margin-bottom: 8px; }
+        .auth-card p { color: #666; margin-bottom: 18px; }
+        .auth-card label { display: block; margin-top: 12px; margin-bottom: 6px; font-weight: 600; }
+        .auth-card input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .auth-actions { margin-top: 18px; display: grid; gap: 10px; }
+        .btn-primary { background: var(--color-dark-green); color: #fff; border: 1px solid var(--color-dark-green); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-secondary { background: #fff; color: var(--color-dark-green); border: 1px solid var(--color-dark-green); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .divider { text-align: center; color: #888; margin: 8px 0; font-size: 0.9rem; }
+        .auth-footer { margin-top: 12px; font-size: 0.95rem; color: #555; }
+        .auth-footer a { color: var(--color-dark-green); text-decoration: none; }
+        .error { color: #b00020; margin-top: 10px; min-height: 20px; }
+        header { position: static; }
+    </style>
+    <script type="module">
+        import { auth } from '/assets/js/firebase.js';
+        import {
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+        } from 'firebase/auth';
+
+        const provider = new GoogleAuthProvider();
+
+        async function handleEmailPasswordLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('error');
+            errorEl.textContent = '';
+            console.log('Attempting login with:', email);
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                console.log('Login successful');
+                window.location.href = 'portal.html';
+            } catch (err) {
+                console.error('Login error:', err);
+                errorEl.textContent = formatAuthError(err);
+            }
+        }
+
+        async function handleEmailPasswordSignup(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('error');
+            errorEl.textContent = '';
+            console.log('Attempting signup with:', email);
+            try {
+                const result = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('Signup successful:', result.user);
+                window.location.href = 'portal.html';
+            } catch (err) {
+                console.error('Signup error:', err);
+                errorEl.textContent = formatAuthError(err);
+            }
+        }
+
+        async function handleGoogleLogin() {
+            const errorEl = document.getElementById('error');
+            errorEl.textContent = '';
+            console.log('Attempting Google sign-in');
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log('Google sign-in successful:', result.user);
+                window.location.href = 'portal.html';
+            } catch (err) {
+                console.error('Google sign-in error:', err);
+                errorEl.textContent = formatAuthError(err);
+            }
+        }
+
+        function formatAuthError(err) {
+            const code = err && err.code ? String(err.code) : '';
+            console.log('Auth error code:', code);
+            const map = {
+                'auth/invalid-credential': 'Invalid email or password.',
+                'auth/user-not-found': 'No account found with that email.',
+                'auth/wrong-password': 'Incorrect password.',
+                'auth/too-many-requests': 'Too many attempts. Try again later.',
+                'auth/popup-closed-by-user': 'Sign-in cancelled.',
+                'auth/operation-not-allowed': 'Email/password accounts are not enabled. Please contact support.',
+                'auth/weak-password': 'Password should be at least 6 characters.',
+                'auth/email-already-in-use': 'An account with this email already exists.',
+                'auth/invalid-email': 'Invalid email address.',
+            };
+            return map[code] || (err && err.message ? err.message : 'Authentication error.');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Login page loaded, setting up event listeners');
+            document.getElementById('login-form').addEventListener('submit', handleEmailPasswordLogin);
+            document.getElementById('signup-btn').addEventListener('click', handleEmailPasswordSignup);
+            document.getElementById('google-btn').addEventListener('click', handleGoogleLogin);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">New Horizon Precision</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="auth-wrapper">
+        <section class="auth-card" aria-label="Customer login">
+            <h1>Customer Login</h1>
+            <p>Sign in to access your customer portal.</p>
+            <form id="login-form">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                <div class="auth-actions">
+                    <button class="btn-primary" type="submit">Sign In</button>
+                    <button class="btn-secondary" id="signup-btn" type="button">Create Account</button>
+                    <div class="divider">or</div>
+                    <button class="btn-secondary" id="google-btn" type="button">Continue with Google</button>
+                </div>
+                <div id="error" class="error" role="alert" aria-live="polite"></div>
+            </form>
+            <div class="auth-footer">
+                <a href="#" aria-disabled="true">Forgot password?</a> (Enable in Firebase Console)
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+
