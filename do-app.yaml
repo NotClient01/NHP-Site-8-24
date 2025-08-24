@@ -4,7 +4,7 @@ static_sites:
     git:
       repo_clone_url: https://github.com/NotClient01/Site-Final.git
       branch: main
-    source_dir: /
+    source_dir: .
     routes:
       - path: /
     build_command: "npm install --no-fund --no-audit && npm run build"
